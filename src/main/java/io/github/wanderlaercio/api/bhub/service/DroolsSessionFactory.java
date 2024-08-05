@@ -1,21 +1,20 @@
-package io.github.wanderlaercio.api.bhub.infraestructure.drools.service;
+package io.github.wanderlaercio.api.bhub.service;
 
-import org.kie.api.KieServices;
-import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DroolsSessionFactory {
 
-    private final KieContainer kieContainer;
+    private final KieSession kieSession;
 
-    public DroolsSessionFactory() {
-        KieServices kieServices = KieServices.Factory.get();
-        this.kieContainer = kieServices.getKieClasspathContainer();
+    @Autowired
+    public DroolsSessionFactory(KieSession kieSession) {
+        this.kieSession = kieSession;
     }
 
     public KieSession getKieSession() {
-        return kieContainer.newKieSession("paymentSession");
+        return kieSession;
     }
 }

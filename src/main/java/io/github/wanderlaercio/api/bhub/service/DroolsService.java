@@ -1,8 +1,8 @@
-package io.github.wanderlaercio.api.bhub.domain.service;
+package io.github.wanderlaercio.api.bhub.service;
 
-import io.github.wanderlaercio.api.bhub.domain.model.PaymentRuleModel;
+import io.github.wanderlaercio.api.bhub.model.PaymentRuleModel;
+import io.github.wanderlaercio.api.bhub.model.RuleExecutionResponse;
 
 public interface DroolsService {
-    void executeRules(PaymentRuleModel payment);
+    RuleExecutionResponse executeRules(RuleExecutionResponse response, PaymentRuleModel payment);
 }
-

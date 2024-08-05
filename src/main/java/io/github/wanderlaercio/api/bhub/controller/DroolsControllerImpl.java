@@ -1,7 +1,7 @@
-package io.github.wanderlaercio.api.bhub.application.controller;
-import io.github.wanderlaercio.api.bhub.domain.model.PaymentRuleModel;
-import io.github.wanderlaercio.api.bhub.domain.model.RuleExecutionResponse;
-import io.github.wanderlaercio.api.bhub.domain.service.DroolsService;
+package io.github.wanderlaercio.api.bhub.controller;
+import io.github.wanderlaercio.api.bhub.model.PaymentRuleModel;
+import io.github.wanderlaercio.api.bhub.model.RuleExecutionResponse;
+import io.github.wanderlaercio.api.bhub.service.DroolsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,8 +22,8 @@ public class DroolsControllerImpl {
     @PostMapping("/execute")
     public ResponseEntity<RuleExecutionResponse> executeRules(@RequestBody PaymentRuleModel payment) {
         try {
-            droolsService.executeRules(payment);
-            RuleExecutionResponse response = new RuleExecutionResponse(payment.getAction(), "Rules executed successfully");
+            RuleExecutionResponse response = droolsService.executeRules(new RuleExecutionResponse(),payment);
+            response.setMessage("Rules executed successfully " );
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             RuleExecutionResponse response = new RuleExecutionResponse(null, "Error executing rules: " + e.getMessage());

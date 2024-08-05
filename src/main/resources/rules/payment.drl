@@ -1,10 +1,38 @@
-package KieRule;
-import io.github.wanderlaercio.api.bhub.domain.model.PaymentRuleModel;
+package rules;
 
-rule "VAE"
+import io.github.wanderlaercio.api.bhub.model.PaymentRuleModel;
+import io.github.wanderlaercio.api.bhub.model.RuleExecutionResponse;
 
+rule "Adicionar Video"
 when
-orderObject : PaymentRuleModel(product=="Aprendendo a Esquiar");
+        $response: RuleExecutionResponse();
+		$payment: PaymentRuleModel(product == "Aprendendo a Esquiar");
 then
-orderObject.setInfo("Primeiros Socorros");
-end;
+    $response.addAction("Adicionado vídeo de Primeiros Socorros");
+end
+
+rule "Criar Remessa"
+when
+    $response: RuleExecutionResponse();
+    $payment: PaymentRuleModel(category == "Phisical")
+then
+    $response.addAction("Guia de Remessa Criada para envio");
+end
+
+rule "Remessa para Royaltes"
+when
+    $response: RuleExecutionResponse();
+    $payment: PaymentRuleModel(subcategories == "Book")
+then
+    $response.addAction("Criada Guia de Remessa para departamento de royaltes");
+end
+
+rule "Adicionar Comissao"
+when
+    $response: RuleExecutionResponse();
+    $payment: PaymentRuleModel((category == "Phisical") || (subcategories == "Book"))
+then
+    $response.addAction("Comissao de $"+ $payment.getPrice() * 0.1 +" adicionada ao Agente");
+end
+
+

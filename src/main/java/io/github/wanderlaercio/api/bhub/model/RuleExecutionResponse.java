@@ -1,11 +1,14 @@
-package io.github.wanderlaercio.api.bhub.domain.model;
-import java.util.List;
+package io.github.wanderlaercio.api.bhub.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import lombok.Data;
+
+@Data
 public class RuleExecutionResponse {
-    private List<String> actions;
+    private List<String> actions = new ArrayList<>();
     private String message;
 
-    // Construtores
     public RuleExecutionResponse() {}
 
     public RuleExecutionResponse(List<String> actions, String message) {
@@ -13,20 +16,7 @@ public class RuleExecutionResponse {
         this.message = message;
     }
 
-    // Getters e Setters
-    public List<String> getActions() {
-        return actions;
-    }
-
-    public void setActions(List<String> actions) {
-        this.actions = actions;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
+    public void addAction(String action) {
+        this.actions.add(action);
     }
 }
