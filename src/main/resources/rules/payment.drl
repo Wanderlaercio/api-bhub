@@ -1,0 +1,10 @@
+package KieRule;
+import io.github.wanderlaercio.api.bhub.domain.model.PaymentRuleModel;
+
+rule "VAE"
+
+when
+orderObject : PaymentRuleModel(product=="Aprendendo a Esquiar");
+then
+orderObject.setInfo("Primeiros Socorros");
+end;
