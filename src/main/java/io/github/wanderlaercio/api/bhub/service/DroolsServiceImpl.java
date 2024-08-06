@@ -19,10 +19,16 @@ public class DroolsServiceImpl implements DroolsService {
     @Override
     public RuleExecutionResponse executeRules(RuleExecutionResponse response, PaymentRuleModel payment) {
         KieSession kieSession = droolsSessionFactory.getKieSession();
-        kieSession.insert(payment);
-        kieSession.insert(response);
-        kieSession.fireAllRules();
-        kieSession.dispose();
+        try {
+            kieSession.insert(payment);
+            kieSession.insert(response);
+            kieSession.fireAllRules();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            kieSession.dispose();
+        }
+
         return response;
     }
 }
